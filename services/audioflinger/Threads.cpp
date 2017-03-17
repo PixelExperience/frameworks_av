@@ -1356,7 +1356,6 @@ Exit:
                 removeEffectChain_l(chain);
             }
         }
-        handle.clear();
     }
 
     *status = lStatus;
