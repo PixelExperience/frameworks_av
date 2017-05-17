@@ -574,6 +574,7 @@ private:
 
     sp<AudioRecordThread>   mAudioRecordThread;
     mutable Mutex           mLock;
+    mutable Mutex           mReadLock;
 
     // Current client state:  false = stopped, true = active.  Protected by mLock.  If more states
     // are added, consider changing this to enum State { ... } mState as in AudioTrack.
