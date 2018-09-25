@@ -185,6 +185,21 @@ status_t CameraService::enumerateProviders() {
 
     for (auto& cameraId : deviceIds) {
         String8 id8 = String8(cameraId.c_str());
+
+#ifdef CAMERA_NEEDS_ADD_STATES_IN_ENUMERATE
+        bool cameraFound = false;
+        {
+            Mutex::Autolock lock(mCameraStatesLock);
+            auto iter = mCameraStates.find(id8);
+            if (iter != mCameraStates.end()) {
+                cameraFound = true;
+            }
+        }
+        if (!cameraFound) {
+            addStates(id8);
+        }
+#endif
+
         onDeviceStatusChanged(id8, CameraDeviceStatus::PRESENT);
     }
 
@@ -283,8 +298,10 @@ void CameraService::onDeviceStatusChanged(const String8& id,
             ALOGI("%s: Unknown camera ID %s, a new camera is added",
                     __FUNCTION__, id.string());
 
+#ifndef CAMERA_NEEDS_ADD_STATES_IN_ENUMERATE
             // First add as absent to make sure clients are notified below
             addStates(id);
+#endif
 
             updateStatus(newStatus, id);
         } else {
