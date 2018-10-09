@@ -84,6 +84,11 @@ LOCAL_SHARED_LIBRARIES:= \
     android.hardware.camera.device@3.3 \
     android.hardware.camera.device@3.4
 
+
+ifeq ($(TARGET_CAMERA_BOOTTIME_TIMESTAMP),true)
+LOCAL_CFLAGS += -DTARGET_CAMERA_BOOTTIME_TIMESTAMP
+endif
+
 LOCAL_EXPORT_SHARED_LIBRARY_HEADERS := libbinder libcamera_client libfmq
 
 LOCAL_C_INCLUDES += \
