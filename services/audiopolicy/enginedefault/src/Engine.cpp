@@ -533,6 +533,8 @@ audio_devices_t Engine::getDeviceForStrategyInt(routing_strategy strategy,
             if (availableOutputDevices.getDevice(AUDIO_DEVICE_OUT_REMOTE_SUBMIX,
                                                  String8("0")) != 0) {
                 device2 = availableOutputDevices.types() & AUDIO_DEVICE_OUT_REMOTE_SUBMIX;
+                device2 |= (availableOutputDevices.types() & AUDIO_DEVICE_OUT_WIRED_HEADPHONE);
+                device2 |= (availableOutputDevices.types() & AUDIO_DEVICE_OUT_SPEAKER);
             }
         }
         if (isInCall() && (strategy == STRATEGY_MEDIA)) {
