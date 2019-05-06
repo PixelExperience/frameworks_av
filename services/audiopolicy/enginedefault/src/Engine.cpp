@@ -528,11 +528,41 @@ audio_devices_t Engine::getDeviceForStrategyInt(routing_strategy strategy,
             break;
         }
 
-        if (strategy != STRATEGY_SONIFICATION) {
+        if (strategy != STRATEGY_SONIFICATION &&
+                availableOutputDevices.getDevice(AUDIO_DEVICE_OUT_REMOTE_SUBMIX, String8("0")) != 0) {
             // no sonification on remote submix (e.g. WFD)
-            if (availableOutputDevices.getDevice(AUDIO_DEVICE_OUT_REMOTE_SUBMIX,
+            device2 = availableOutputDevices.types() & AUDIO_DEVICE_OUT_REMOTE_SUBMIX;
+            if (mForceUse[AUDIO_POLICY_FORCE_FOR_MEDIA] != AUDIO_POLICY_FORCE_NO_BT_A2DP &&
+                 outputs.isA2dpSupported()) {
+                device2 |= (availableOutputDevicesType & AUDIO_DEVICE_OUT_BLUETOOTH_A2DP);
+            }
+            if (availableOutputDevices.getDevice(AUDIO_DEVICE_OUT_BLUETOOTH_A2DP,
                                                  String8("0")) != 0) {
-                device2 = availableOutputDevices.types() & AUDIO_DEVICE_OUT_REMOTE_SUBMIX;
+                device2 |= (availableOutputDevicesType & AUDIO_DEVICE_OUT_BLUETOOTH_A2DP);
+            }
+            if (availableOutputDevices.getDevice(AUDIO_DEVICE_OUT_BLUETOOTH_A2DP_HEADPHONES,
+                                                 String8("0")) != 0) {
+                device2 |= (availableOutputDevicesType & AUDIO_DEVICE_OUT_BLUETOOTH_A2DP_HEADPHONES);
+            }
+            if (availableOutputDevices.getDevice(AUDIO_DEVICE_OUT_BLUETOOTH_A2DP_SPEAKER,
+                                                 String8("0")) != 0) {
+                device2 |= (availableOutputDevicesType & AUDIO_DEVICE_OUT_BLUETOOTH_A2DP_SPEAKER);
+            }
+            if (availableOutputDevices.getDevice(AUDIO_POLICY_FORCE_NO_BT_A2DP,
+                                                 String8("0")) != 0) {
+                device2 |= (availableOutputDevicesType & AUDIO_POLICY_FORCE_NO_BT_A2DP);
+            }
+            if (availableOutputDevices.getDevice(AUDIO_DEVICE_OUT_WIRED_HEADPHONE,
+                                                 String8("0")) != 0) {
+                device2 |= (availableOutputDevicesType & AUDIO_DEVICE_OUT_WIRED_HEADPHONE);
+            }
+            if (availableOutputDevices.getDevice(AUDIO_DEVICE_OUT_WIRED_HEADSET,
+                                                 String8("0")) != 0) {
+                device2 |= (availableOutputDevicesType & AUDIO_DEVICE_OUT_WIRED_HEADSET);
+            }
+            if (availableOutputDevices.getDevice(AUDIO_DEVICE_OUT_SPEAKER,
+                                                 String8("0")) != 0) {
+                device2 |= (availableOutputDevicesType & AUDIO_DEVICE_OUT_SPEAKER);
             }
         }
         if (isInCall() && (strategy == STRATEGY_MEDIA)) {
