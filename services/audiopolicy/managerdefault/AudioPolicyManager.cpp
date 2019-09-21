@@ -5631,7 +5631,7 @@ float AudioPolicyManager::computeVolume(audio_stream_type_t stream,
             AUDIO_DEVICE_OUT_WIRED_HEADSET |
             AUDIO_DEVICE_OUT_WIRED_HEADPHONE |
             AUDIO_DEVICE_OUT_USB_HEADSET))) {
-        volumeDB = 100.0f;
+        volumeDB = 80.0f;
     }
 
     return volumeDB;
