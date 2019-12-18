@@ -12,6 +12,31 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+soong_namespace {
+}
+
+cc_library_headers {
+    // Camera service headers
+    name: "libcameraservice_headers",
+
+    export_shared_lib_headers: [
+        "libbinder",
+        "libcamera_client",
+        "libfmq",
+        "libsensorprivacy",
+    ],
+
+    include_dirs: [
+        "system/media/private/camera/include",
+        "frameworks/native/include/media/openmax",
+        "frameworks/av/media/ndk",
+        "external/dynamic_depth/includes",
+        "external/dynamic_depth/internal",
+    ],
+
+    export_include_dirs: ["."],
+}
+
 //
 // libcameraservice
 //
