@@ -12,6 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+soong_namespace {
+}
+
+cc_library_headers {
+    name: "libcameraservice_headers",
+    export_include_dirs: ["libcameraservice"],
+}
+
 //
 // libcameraservice
 //
