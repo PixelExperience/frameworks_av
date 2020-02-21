@@ -604,8 +604,7 @@ static status_t deserializeLegacyVolumeCollection(_xmlDoc *doc, const _xmlNode *
 }
 
 ParsingResult parse(const char* path) {
-    xmlDocPtr doc;
-    doc = xmlParseFile(path);
+    xmlDocPtr doc = NULL;
     if (doc == NULL) {
         ALOGE("%s: Could not parse document %s", __FUNCTION__, path);
         return {nullptr, 0};
