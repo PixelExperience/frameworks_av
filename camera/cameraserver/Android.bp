@@ -12,16 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-soong_namespace {
-}
-
 cc_binary {
     name: "cameraserver",
 
     srcs: ["main_cameraserver.cpp"],
 
     shared_libs: [
-        "//frameworks/av/services/camera/libcameraservice:libcameraservice",
+        "libcameraservice",
         "liblog",
         "libutils",
         "libui",
