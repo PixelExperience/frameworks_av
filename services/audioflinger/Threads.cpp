@@ -2405,6 +2405,46 @@ ssize_t AudioFlinger::PlaybackThread::Tracks<T>::remove(const sp<T> &track)
     return index;
 }
 
+<<<<<<< HEAD   (17aeb4 Merge tag 'android-11.0.0_r37' into HEAD)
+=======
+void AudioFlinger::PlaybackThread::listAppTrackDatas(std::set<AppTrackData> &cup)
+{
+    Mutex::Autolock _l(mLock);
+    for (sp<Track> track : mActiveTracks) {
+        if (!track->getPackageName().isEmpty()) {
+            AppTrackData av;
+            strcpy(av.packageName, track->getPackageName().c_str());
+            av.muted = track->isAppMuted();
+            av.volume = track->getAppVolume();
+            av.active = true;
+            cup.insert(av);
+        }
+    }
+}
+
+status_t AudioFlinger::PlaybackThread::setAppVolume(const String8& packageName, const float value)
+{
+    Mutex::Autolock _l(mLock);
+    for (sp<Track> track : mTracks) {
+        if (packageName == track->getPackageName()) {
+            track->setAppVolume(value);
+        }
+    }
+    return NO_ERROR;
+}
+
+status_t AudioFlinger::PlaybackThread::setAppMute(const String8& packageName, const bool value)
+{
+    Mutex::Autolock _l(mLock);
+    for (sp<Track> track : mTracks) {
+        if (packageName == track->getPackageName()) {
+            track->setAppMute(value);
+        }
+    }
+    return NO_ERROR;
+}
+
+>>>>>>> CHANGE (71c511 audio: list only actived tracks)
 uint32_t AudioFlinger::PlaybackThread::correctLatency_l(uint32_t latency) const
 {
     return latency;
