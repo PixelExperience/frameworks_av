@@ -19,7 +19,7 @@
 
 #include <utils/Vector.h>
 #include <utils/String8.h>
-#include <camera/CameraParameters.h>
+#include "CameraParameters.h"
 
 namespace android {
 
