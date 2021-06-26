@@ -75,6 +75,9 @@ protected:
             int64_t timeUs,
             bool *done) = 0;
 
+    virtual status_t extractInternal_ext() = 0;
+    virtual status_t init_ext(
+            int64_t frameTimeUs, int option, int colorFormat) = 0;
     sp<MetaData> trackMeta()     const      { return mTrackMeta; }
     OMX_COLOR_FORMATTYPE dstFormat() const  { return mDstFormat; }
     ui::PixelFormat captureFormat() const   { return mCaptureFormat; }
@@ -132,6 +135,15 @@ protected:
             int64_t timeUs,
             bool *done) override;
 
+    virtual status_t extractInternal_ext() override {
+        return ERROR_UNSUPPORTED;
+    }
+
+    virtual status_t init_ext(
+        int64_t frameTimeUs __unused,
+        int option __unused,
+        int colorFormat __unused) override { return ERROR_UNSUPPORTED;}
+
 private:
     sp<FrameCaptureLayer> mCaptureLayer;
     VideoFrame *mFrame;
@@ -171,6 +183,15 @@ protected:
             const sp<AMessage> &outputFormat,
             int64_t timeUs,
             bool *done) override;
+
+    virtual status_t extractInternal_ext() override {
+        return ERROR_UNSUPPORTED;
+    }
+
+    virtual status_t init_ext(
+        int64_t frameTimeUs __unused,
+        int option __unused,
+        int colorFormat __unused) override { return ERROR_UNSUPPORTED;}
 
 private:
     VideoFrame *mFrame;
