@@ -254,6 +254,14 @@ bool isHDR(const sp<AMessage> &format) {
 
 status_t FrameDecoder::init(
         int64_t frameTimeUs, int option, int colorFormat) {
+// HEIF ++
+    const char *mime;
+    CHECK(mTrackMeta->findCString(kKeyMIMEType, &mime));
+
+    if (!strcasecmp(mime, MEDIA_MIMETYPE_IMAGE_ANDROID_HEIC)) {
+        return init_ext(frameTimeUs, option, colorFormat);
+    }
+// HEIF --
     if (!getDstColorFormat((android_pixel_format_t)colorFormat,
             &mDstFormat, &mCaptureFormat, &mDstBpp)) {
         return ERROR_UNSUPPORTED;
@@ -305,7 +313,14 @@ status_t FrameDecoder::init(
 sp<IMemory> FrameDecoder::extractFrame(FrameRect *rect) {
     status_t err = onExtractRect(rect);
     if (err == OK) {
-        err = extractInternal();
+        const char *mime;
+        CHECK(mTrackMeta->findCString(kKeyMIMEType, &mime));
+
+        if (!strcasecmp(mime, MEDIA_MIMETYPE_IMAGE_ANDROID_HEIC)) {
+            err = extractInternal_ext();
+        } else {
+            err = extractInternal();
+        }
     }
     if (err != OK) {
         return NULL;
