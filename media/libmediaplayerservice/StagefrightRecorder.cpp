@@ -2242,6 +2242,10 @@ status_t StagefrightRecorder::reset() {
 
     mOutputFd = -1;
 
+    // add for mtk defined infos in mediarecorder.h.
+    mMediaInfoFlag = 0;
+    // ~add for mtk
+
     return OK;
 }
 
@@ -2418,5 +2422,41 @@ status_t StagefrightRecorder::dump(
     result.append(buffer);
     ::write(fd, result.string(), result.size());
     return OK;
+}
+
+// add for mtk, mtk added interfaces
+status_t StagefrightRecorder::setParameterEx(const String8 &key, const String8 &value) {
+    /* add for mtk defined infos in mediarecorder.h. If ap set the parameter,
+       then return the related info, otherwise not notify the message.
+       This can avoid the third apps treat the mtk defined infos as err.
+    */
+    ALOGD("setParameter: key (%s) => value (%s)", key.string(), value.string());
+    if (key == "media-recorder-info") {
+        int32_t MediaRecorderInfo = 0;
+        if (safe_strtoi32(value.string(), &MediaRecorderInfo)) {
+            switch (MediaRecorderInfo) {
+                case 895:
+                    mMediaInfoFlag |= RECORDING_SIZE_FLAG;
+                    break;
+                case 1998:
+                    mMediaInfoFlag |= START_TIMER_FLAG;
+                    break;
+                case 1999:
+                    mMediaInfoFlag |= CAMERA_RELEASE_FLAG;
+                    break;
+                default:
+                    ALOGE(" set media-recorder-info bad value!!!");
+                    return BAD_VALUE;
+            }
+            return OK;
+        } else {
+            ALOGE(" set media-recorder-info failed!!!");
+            return BAD_VALUE;
+        }
+    } else {
+        ALOGE("setParameterEx: failed to find key %s", key.string());
+    }
+
+    return BAD_VALUE;
 }
 }  // namespace android

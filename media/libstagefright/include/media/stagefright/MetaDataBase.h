@@ -264,6 +264,19 @@ enum {
     kCryptoModeAesCbc      = 2,
 };
 
+enum {
+    kKeyMediaInfoFlag = 'infg',  // add for mtk defined infos in mediarecorder.h.
+
+    // for ape seek
+    kKeynewframe = 'sfrm',
+    kKeyseekbyte = 'sebt',
+    // for wfd feature,
+    kKeyWFDLatency = 'wfdl',  // uint32_t
+    kKeyVideoTime = 'viti',  // uint32_t (msecs)
+    // for camera hal1 slowmotion
+    kKeySlowMotionTag    = 'slom',  // int32_t
+};
+
 class Parcel;
 
 class MetaDataBase {

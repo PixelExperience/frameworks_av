@@ -480,6 +480,11 @@ private:
 
     Track(const Track &);
     Track &operator=(const Track &);
+// add for mtk
+private:
+    int32_t     mMediaInfoFlag;  // add for mtk defined infos in mediarecorder.h.
+    int32_t     mSlowMotionSpeedTag;
+// ~add for mtk
 };
 
 MPEG4Writer::MPEG4Writer(int fd) {
@@ -2114,6 +2119,8 @@ MPEG4Writer::Track::Track(
             mIsPrimary = false;
         }
     }
+    mMediaInfoFlag = 0;  // add for mtk defined infos in mediarecorder.h.
+    mSlowMotionSpeedTag = 1;
 }
 
 // Clear all the internal states except the CSD data.
@@ -2156,6 +2163,7 @@ void MPEG4Writer::Track::resetInternal() {
         mElstTableEntries = new ListTableEntries<uint32_t, 3>(3);
     }
     mReachedEOS = false;
+    mMediaInfoFlag = 0;  // add for mtk defined infos in mediarecorder.h.
 }
 
 int64_t MPEG4Writer::Track::trackMetaDataSize() {
@@ -2764,6 +2772,13 @@ status_t MPEG4Writer::Track::start(MetaData *params) {
             params->findInt32(kKeyRotation, &rotationDegrees)) {
         mRotation = rotationDegrees;
     }
+    // add for mtk, add for mtk defined infos in mediarecorder.h.
+    int32_t mediainfoflag = 0;
+    if (params && params->findInt32(kKeyMediaInfoFlag, &mediainfoflag)) {
+        mMediaInfoFlag = mediainfoflag;
+    }
+    // end of add for mtk
+
     if (mIsHeic) {
         // Reserve the item ids, so that the item ids are ordered in the same
         // order that the image tracks are added.
@@ -2849,6 +2864,12 @@ status_t MPEG4Writer::Track::stop(bool stopSource) {
         ALOGD("%s track source stopping", getTrackType());
         mSource->stop();
         ALOGD("%s track source stopped", getTrackType());
+        // add for mtk defined infos in mediarecorder.h.
+        if (mIsVideo && (mMediaInfoFlag & CAMERA_RELEASE_FLAG)) {
+            ALOGD("Notify camera release");
+            mOwner->notify(MEDIA_RECORDER_EVENT_INFO, MEDIA_RECORDER_INFO_CAMERA_RELEASE, 0);
+        }
+        // end of add for mtk
     }
 
     // Set mDone to be true after sucessfully stop mSource as mSource may be still outputting
@@ -3501,6 +3522,15 @@ status_t MPEG4Writer::Track::threadEntry() {
                 mOwner->setStartTimestampUs(timestampUs);
                 mStartTimestampUs = timestampUs;
                 previousPausedDurationUs = mStartTimestampUs;
+                // add for mtk defined infos in mediarecorder.h.
+                ALOGD("%s mStartTimestampUs=%" PRId64 "us", trackName, mStartTimestampUs);
+                if (mIsVideo) {
+                    if (mMediaInfoFlag & START_TIMER_FLAG) {
+                        ALOGD("notify start timer");
+                        mOwner->notify(MEDIA_RECORDER_EVENT_INFO, MEDIA_RECORDER_INFO_START_TIMER, 0);
+                    }
+                }
+                // end of add for mtk
             }
 
             if (mResumed) {
