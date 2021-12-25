@@ -79,11 +79,11 @@ WifiDisplaySource::WifiDisplaySource(
     mSupportedSourceVideoFormats.disableAll();
 
     mSupportedSourceVideoFormats.setNativeResolution(
-            VideoFormats::RESOLUTION_CEA, 8);  // 1920x1080p60
+            VideoFormats::RESOLUTION_CEA, 5);  // 1280x720 p30
 
-    // Enable all resolutions up to 1920x1080p60
+    // Enable all resolutions up to 1280x720p30
     mSupportedSourceVideoFormats.enableResolutionUpto(
-            VideoFormats::RESOLUTION_CEA, 8,
+            VideoFormats::RESOLUTION_CEA, 5,
             VideoFormats::PROFILE_CHP,  // Constrained High Profile
             VideoFormats::LEVEL_32);    // Level 3.2
 }
