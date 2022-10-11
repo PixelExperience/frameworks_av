@@ -86,7 +86,7 @@ int64_t euclidDistSquare(int32_t x0, int32_t y0, int32_t x1, int32_t y1);
 // a width <= ROUNDING_WIDTH_CAP
 bool roundBufferDimensionNearest(int32_t width, int32_t height, int32_t format,
         android_dataspace dataSpace, const CameraMetadata& info, bool maxResolution,
-        /*out*/int32_t* outWidth, /*out*/int32_t* outHeight);
+        /*out*/int32_t* outWidth, /*out*/int32_t* outHeight, bool isPriviledgedClient);
 
 // check if format is not custom format
 bool isPublicFormat(int32_t format);
@@ -97,8 +97,12 @@ binder::Status createSurfaceFromGbp(
         camera3::OutputStreamInfo& streamInfo, bool isStreamInfoValid,
         sp<Surface>& surface, const sp<IGraphicBufferProducer>& gbp,
         const String8 &logicalCameraId, const CameraMetadata &physicalCameraMetadata,
+<<<<<<< HEAD
         const std::vector<int32_t> &sensorPixelModesUsed,  int64_t dynamicRangeProfile,
         int64_t streamUseCase, int timestampBase, int mirrorMode);
+=======
+        const std::vector<int32_t> &sensorPixelModesUsed, bool isPriviledgedClient=false);
+>>>>>>> 0f1649f3a5 (Camera: Skip stream size check for whitelisted apps)
 
 //check if format is 10-bit output compatible
 bool is10bitCompatibleFormat(int32_t format);
@@ -111,9 +115,22 @@ bool isDynamicRangeProfileSupported(int64_t dynamicRangeProfile, const CameraMet
 
 bool isStreamUseCaseSupported(int64_t streamUseCase, const CameraMetadata &deviceInfo);
 
+<<<<<<< HEAD
 void mapStreamInfo(const OutputStreamInfo &streamInfo,
         camera3::camera_stream_rotation_t rotation, String8 physicalId,
         int32_t groupId, aidl::android::hardware::camera::device::Stream *stream /*out*/);
+=======
+    // utility function to convert AIDL SessionConfiguration to HIDL
+    // streamConfiguration. Also checks for validity of SessionConfiguration and
+    // returns a non-ok binder::Status if the passed in session configuration
+    // isn't valid.
+    static binder::Status
+    convertToHALStreamCombination(const SessionConfiguration& sessionConfiguration,
+            const String8 &cameraId, const CameraMetadata &deviceInfo,
+            metadataGetter getMetadata, const std::vector<std::string> &physicalCameraIds,
+            hardware::camera::device::V3_7::StreamConfiguration &streamConfiguration,
+            bool overrideForPerfClass, bool *earlyExit, bool isPriviledgedClient = false);
+>>>>>>> 0f1649f3a5 (Camera: Skip stream size check for whitelisted apps)
 
 // Check that the physicalCameraId passed in is spported by the camera
 // device.
