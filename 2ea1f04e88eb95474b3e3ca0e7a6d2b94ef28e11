@@ -16,6 +16,23 @@
       "message": "FAILED: out/soong/build.ninja\ncd \"$(dirname \"out/host/linux-x86/bin/soong_build\")\" \u0026\u0026 BUILDER\u003d\"$PWD/$(basename \"out/host/linux-x86/bin/soong_build\")\" \u0026\u0026 cd / \u0026\u0026 env -i  \"$BUILDER\"     --top \"$TOP\"     --soong_out \"out/soong\"     --out \"out\"     -o out/soong/build.ninja --globListDir build --globFile out/soong/globs-build.ninja -t -l out/.module_paths/Android.bp.list --available_env out/soong/soong.environment.available --used_env out/soong/soong.environment.used.build Android.bp\nerror: hardware/lineage/compat/Android.bp:217:1: module \"libavservices_minijail_vendor\" already defined\nframeworks/av/services/minijail/Android.bp:43:1 \u003c-- previous definition here",
       "revId": "2ea1f04e88eb95474b3e3ca0e7a6d2b94ef28e11",
       "serverId": "8ba0da3e-d57f-4bbe-ac74-faf358ba962a"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccff76ee_9d1e1ea2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000166
+      },
+      "writtenOn": "2022-10-14T13:50:23Z",
+      "side": 1,
+      "message": "It\u0027s just a build fix",
+      "revId": "2ea1f04e88eb95474b3e3ca0e7a6d2b94ef28e11",
+      "serverId": "8ba0da3e-d57f-4bbe-ac74-faf358ba962a"
     }
   ]
 }
