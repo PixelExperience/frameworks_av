@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f848f90a_f01df6a0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000162
+      },
+      "writtenOn": "2023-02-21T12:37:12Z",
+      "side": 1,
+      "message": "The codec does listed on the Codec tab on Device Info HW. But Dolby codec test page still says not supported. Probably still needs other device side commit, sepolicy maybe.",
+      "revId": "d4ecc69f1fb444782d66b72c952b3436f360f14d",
+      "serverId": "8ba0da3e-d57f-4bbe-ac74-faf358ba962a"
+    }
+  ]
+}
