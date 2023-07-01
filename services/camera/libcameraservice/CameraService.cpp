@@ -79,7 +79,7 @@
 #include "utils/CameraServiceProxyWrapper.h"
 
 #ifdef CAMERA_NEEDS_CLIENT_INFO_LIB
-#include <vendor/oplus/hardware/cameraMDM/2.0/IOPlusCameraMDM.h>
+#include <vendor/oneplus/hardware/camera/1.0/IOnePlusCameraProvider.h>
 #endif
 
 namespace {
@@ -100,7 +100,7 @@ using hardware::camera2::ICameraInjectionSession;
 using hardware::camera2::utils::CameraIdAndSessionConfiguration;
 using hardware::camera2::utils::ConcurrentCameraIdCombination;
 #ifdef CAMERA_NEEDS_CLIENT_INFO_LIB
-using ::vendor::oplus::hardware::cameraMDM::V2_0::IOPlusCameraMDM;
+using ::vendor::oneplus::hardware::camera::V1_0::IOnePlusCameraProvider;
 #endif
 
 // ----------------------------------------------------------------------------
@@ -140,7 +140,7 @@ static const String16
         sCameraInjectExternalCameraPermission("android.permission.CAMERA_INJECT_EXTERNAL_CAMERA");
 const char *sFileName = "lastOpenSessionDumpFile";
 #ifdef CAMERA_NEEDS_CLIENT_INFO_LIB
-static const sp<IOPlusCameraMDM> gVendorCameraProviderService = IOPlusCameraMDM::getService();
+static const sp<IOnePlusCameraProvider> gVendorCameraProviderService = IOnePlusCameraProvider::getService();
 #endif
 static constexpr int32_t kSystemNativeClientScore = resource_policy::PERCEPTIBLE_APP_ADJ;
 static constexpr int32_t kSystemNativeClientState =
