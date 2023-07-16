@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b69789e9_426ce5c6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000749
+      },
+      "writtenOn": "2023-07-16T10:24:43Z",
+      "side": 1,
+      "message": "Needed for violet MiuiCamera",
+      "revId": "80f9192762548ec0256645f2fea1c17cce14457f",
+      "serverId": "8ba0da3e-d57f-4bbe-ac74-faf358ba962a"
+    }
+  ]
+}
