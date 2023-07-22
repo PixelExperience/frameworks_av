@@ -3583,6 +3583,7 @@ status_t CameraService::BasicClient::startCameraOps() {
 
     mOpsActive = true;
 
+#ifdef TARGET_USES_MIUI_CAMERA
     // Configure miui camera mode
     if (strcmp(String8(mClientPackageName).string(), "com.android.camera") == 0) {
         SetProperty("sys.camera.miui.apk", "1");
@@ -3591,6 +3592,7 @@ status_t CameraService::BasicClient::startCameraOps() {
         SetProperty("sys.camera.miui.apk", "0");
         ALOGI("Disabling miui camera mode");
     }
+#endif
 
     // Transition device availability listeners from PRESENT -> NOT_AVAILABLE
     sCameraService->updateStatus(StatusInternal::NOT_AVAILABLE, mCameraIdStr);
