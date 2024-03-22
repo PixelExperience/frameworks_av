@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6c1de45_e6e0f9f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2024-03-22T18:32:32Z",
+      "side": 1,
+      "message": "Works fine with Moto Dolby 2 and 3 on Gemini, Grus and Courbet, with Moto 3 implementation also ac3 and eac3 decoders works as expected",
+      "revId": "d2a6622ccf4597edb8137d162ad13739f5513220",
+      "serverId": "4889e122-48d1-4608-950d-fd61a2d2ee50"
+    }
+  ]
+}
